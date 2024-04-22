@@ -1,0 +1,19 @@
+Project 2: Withdrawal Contract
+Create a smart contract that allows users to save Ether (ETH) and set withdrawal intervals. The
+contract should enable users to withdraw their funds after a specified interval, such as monthly or
+weekly.
+Requirements:
+● Deposit Funds: Implement a function that allows users to deposit Ether into the
+contract.
+● Set Withdrawal Interval: Implement a function that allows users to set their desired
+withdrawal interval (e.g., monthly, weekly etc).
+● Withdraw Funds: Implement a function that allows users to withdraw their funds after
+the specified interval has elapsed.
+Additional Features (Nice to have):
+● Multiple Withdrawal Intervals: Allow users to set multiple withdrawal intervals for
+different portions of their deposited funds.
+● Interest Calculation: Calculate and distribute interest on the deposited funds based on the
+time elapsed since the deposit.
+Note: Your chosen project will not affect your chances of being selected for the position. We
+want to provide you with an opportunity to showcase your skills and approach to
+problem-solving, regardless of the specific project.
