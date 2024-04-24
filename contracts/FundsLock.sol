@@ -1,0 +1,218 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.17;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import  "@openzeppelin/contracts/access/Ownable.sol";
+
+contract FundsLock is ReentrancyGuard, Ownable {
+
+    error FundsLock__ZeroValue();
+    error FundsLock__BalanceExceeded();
+    error FundsLock__InvalidArgs();
+    error FundsLock__InsufficientFunds();
+    error FundsLock__DepositNotFound();
+    error FundsLock__DepositNotForCaller();
+    error FundsLock__FundsStillLockUp();
+    error FundsLock__InsufficientFundsInReserve();
+    error FundsLock__FundsWithdrawFailed();
+    error FundsLock__AlreadyWithdrawn();
+
+    event FundsDepositedWithInterval(address indexed depositor, uint256[] indexed amount, uint256[] indexed duration);
+    event FundsDeposited(address indexed depositor, uint256 indexed amount, uint256 indexed duration);
+    event InterestsSet(uint256[] indexed durations, uint256[] indexed interests);
+    event FundsWithdrawn(bytes16 indexed depositId, uint256 indexed totalFunds);
+
+
+    struct DepositInfo {
+        address depositor;
+        uint256 amount;
+        uint256 depositTime;
+        uint256 duration;
+        bool claim;
+        bytes16 id;
+    }
+
+    mapping(bytes16 => DepositInfo) private s_userFunds;
+    mapping(uint256 => uint256) private s_durationToInterest;   // You earn interest based on how long your funds is locked up
+    mapping(address => bytes16[]) private s_allUserDeposits;
+
+    uint256[] private s_durations;
+    uint256[] private s_interestPercentages;
+
+    uint256 private s_idGenerator = 0;
+
+    uint256 private constant AMOUNT_PRECISION = 10_000;
+
+     fallback() external payable {
+    }
+
+    receive() external payable {
+    }
+
+    function setInterests(uint256[] memory durations, uint256[] memory interests) external onlyOwner {
+        if (durations.length != interests.length){
+            revert FundsLock__InvalidArgs();
+        }
+
+        delete s_durations;
+        delete s_interestPercentages;
+
+        for (uint i = 0; i < durations.length; i++){
+            s_durations.push(durations[i]);
+            s_interestPercentages.push(interests[i]);
+        }
+
+        emit InterestsSet(durations, interests);
+    }
+
+    function depositFunds(uint256 duration) external payable nonReentrant{
+        uint256 amount = msg.value;
+        if (amount <= 0 || duration <= 0){
+            revert FundsLock__ZeroValue();
+        }
+
+        if (amount > msg.sender.balance){
+            revert FundsLock__BalanceExceeded();
+        }
+
+        bytes16 depositId = _generateDepositID(msg.sender);
+
+         DepositInfo memory newDepositInfo = DepositInfo({
+                depositor: msg.sender,
+                amount: amount,
+                depositTime: block.timestamp,
+                duration: duration,
+                claim: false,
+                id: depositId
+            });
+
+        s_allUserDeposits[msg.sender].push(depositId);
+        s_userFunds[depositId] = newDepositInfo;
+        s_idGenerator++;
+
+        emit FundsDeposited(msg.sender, amount, duration);
+    }
+
+    function depositFundsWithInterval(uint256[] memory amount, uint256[] memory duration) external payable nonReentrant {
+        if (amount.length != duration.length){
+            revert FundsLock__InvalidArgs();
+        }
+
+        uint256 totalAmount = getTotalAmount(amount);
+
+        if (totalAmount > msg.value){
+            revert FundsLock__InsufficientFunds();
+        }
+
+        if (totalAmount > msg.sender.balance){
+            revert FundsLock__BalanceExceeded();
+        }
+
+        for (uint i = 0; i < amount.length; i++){
+            uint256 currentAmount = amount[i];
+            uint256 currentDuration = duration[i];
+            bytes16 depositId = _generateDepositID(msg.sender);
+
+            DepositInfo memory newDepositInfo = DepositInfo({
+                depositor: msg.sender,
+                amount: currentAmount,
+                depositTime: block.timestamp,
+                duration: currentDuration,
+                claim: false,
+                id: depositId
+            });
+
+            s_allUserDeposits[msg.sender].push(depositId);
+            s_userFunds[depositId] = newDepositInfo;
+            s_idGenerator++;
+        }
+        emit FundsDepositedWithInterval(msg.sender, amount, duration);
+
+    }
+
+    function withdrawFunds(bytes16 depositId) external nonReentrant{
+        DepositInfo memory depositInfo = s_userFunds[depositId];
+        if (depositInfo.depositor == address(0)){
+            revert FundsLock__DepositNotFound();
+        }
+        if (depositInfo.depositor != msg.sender){
+            revert FundsLock__DepositNotForCaller();
+        }
+        if (depositInfo.claim == true){
+            revert FundsLock__AlreadyWithdrawn();
+        }
+        if (block.timestamp < depositInfo.depositTime + depositInfo.duration){
+            revert FundsLock__FundsStillLockUp();
+        }
+
+        uint256 interest =  getInterest(depositInfo.amount, depositInfo.depositTime);
+
+
+        uint256 totalFunds = depositInfo.amount + interest;
+
+        if (address(this).balance < totalFunds){
+            revert FundsLock__InsufficientFundsInReserve();
+        }
+        s_userFunds[depositId].claim = true;
+
+        // Send the funds to the depositor 
+        (bool success,) = msg.sender.call{value: totalFunds}("");
+        if (!success){
+            revert FundsLock__FundsWithdrawFailed();
+        }
+
+        emit FundsWithdrawn(depositId, totalFunds);
+
+    }
+
+    function _toBytes16(uint256 x) internal pure returns (bytes16 b) {
+        return bytes16(bytes32(x));
+    }
+
+    function _generateID(
+        address w,
+        uint256 x,
+        uint256 y,
+        bytes1 z) internal pure returns (bytes16 b) {
+        b = _toBytes16(uint256(keccak256(abi.encodePacked(w, x, y, z))));
+    }
+
+    function _generateDepositID(address _user) internal view returns (bytes16 depositId){
+        return _generateID( _user, s_idGenerator, block.timestamp, 0x01);
+    }
+
+    function getTotalAmount(uint256[] memory amount) public pure returns(uint256){
+        uint256 totalAmount = 0;
+        for (uint256 i = 0; i < amount.length; i++){
+            totalAmount += amount[i];
+        }
+        return totalAmount;
+    } 
+
+    function getInterest(uint256 amount, uint256 depositTime) public view returns(uint256){
+        uint256 timeElapsed = block.timestamp - depositTime;
+        uint256 interest = 0;
+
+        for (int256 index = int(s_durations.length - 1); index >= 0; index--){
+            uint256 i = uint256(index);
+            uint256 currentDuration = s_durations[i];
+        
+            if (timeElapsed >= currentDuration){
+                interest = (s_interestPercentages[i] * amount) / AMOUNT_PRECISION;
+                break;
+            }
+        }  
+
+        return interest;
+    }
+
+    function getUserDepositIds(address user) external view returns(bytes16[] memory){
+        return s_allUserDeposits[user];
+    }
+
+    function getUserDeposit(bytes16 depositId) external view returns(DepositInfo memory){
+        return s_userFunds[depositId];
+    }
+
+}
+

@@ -1,7 +1,6 @@
 import { ethers, getNamedAccounts, network } from "hardhat";
 import { Addressable, BigNumberish, Signer } from "ethers";
 import { networkConfig } from "../helper-hardhat-config";
-import { IUniswapV2Router, IERC20 } from "../typechain-types";
 
 
 

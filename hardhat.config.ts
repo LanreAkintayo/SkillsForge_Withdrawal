@@ -36,9 +36,9 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      forking: {
-        url: "https://bsc-dataseed.binance.org",
-      },
+      // forking: {
+      //   url: "https://bsc-dataseed.binance.org",
+      // },
     },
     localhost: {
       timeout: 100_000_000,
@@ -50,7 +50,7 @@ const config: HardhatUserConfig = {
       gasPrice: 20000000000,
       blockConfirmations: 6,
       //@ts-ignore
-      accounts: { mnemonic: MNEMONIC }, 
+      accounts: { mnemonic: MNEMONIC },
     },
     mainnet: {
       url: BSC_URL,
@@ -58,7 +58,7 @@ const config: HardhatUserConfig = {
       gasPrice: 20000000000,
       blockConfirmations: 6,
       //@ts-ignore
-      accounts: { mnemonic: MNEMONIC }
+      accounts: { mnemonic: MNEMONIC },
     },
   },
   namedAccounts: {
@@ -67,7 +67,7 @@ const config: HardhatUserConfig = {
     },
     user: {
       default: 1,
-    }
+    },
   },
 
   contractSizer: {
