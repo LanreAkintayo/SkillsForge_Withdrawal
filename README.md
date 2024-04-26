@@ -7,7 +7,8 @@
 
 ```
 MNEMONIC=app boy spoon father mother ship monitor key type row column random
-SEPOLIA_URL=SEPOLIA_URL=https://eth-sepolia.g.alchemy.com/v2/<API_KEY>
+SEPOLIA_URL=https://eth-sepolia.g.alchemy.com/v2/<API_KEY>
+SEPOLIA_API_KEY=<API_KEY>
 ```
 
 - Note that the mnemonic provided above is just a sample as it does not subject the project to any form of exploitation. The tester should provide their own mnemonic.

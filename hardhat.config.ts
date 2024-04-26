@@ -8,9 +8,8 @@ import "@nomiclabs/hardhat-ethers";
 import "@nomicfoundation/hardhat-chai-matchers";
 import "hardhat-contract-sizer";
 
-const TESTNET_URL = process.env.TESTNET_URL;
+
 const SEPOLIA_URL = process.env.SEPOLIA_URL;
-const BSC_URL = process.env.BSC_URL;
 const MNEMONIC = process.env.MNEMONIC;
 
 interface Network {
@@ -51,23 +50,6 @@ const config: HardhatUserConfig = {
       //@ts-ignore
       accounts: { mnemonic: MNEMONIC },
     },
-
-    testnet: {
-      url: TESTNET_URL,
-      chainId: 97,
-      gasPrice: 20000000000,
-      blockConfirmations: 6,
-      //@ts-ignore
-      accounts: { mnemonic: MNEMONIC },
-    },
-    mainnet: {
-      url: BSC_URL,
-      chainId: 56,
-      gasPrice: 20000000000,
-      blockConfirmations: 6,
-      //@ts-ignore
-      accounts: { mnemonic: MNEMONIC },
-    },
   },
   namedAccounts: {
     deployer: {
@@ -90,16 +72,6 @@ const config: HardhatUserConfig = {
       // @ts-ignore
       sepolia: process.env.SEPOLIA_API_KEY,
     },
-    customChains: [
-      {
-        network: "mumbai",
-        chainId: 8001,
-        urls: {
-          apiURL: "https://api-testnet.polygonscan.com/api",
-          browserURL: "https://mumbai.polygonscan.com/",
-        },
-      },
-    ],
   },
 };
 
