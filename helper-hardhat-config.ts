@@ -4,23 +4,23 @@ export interface networkConfigInfo {
 
 export interface networkConfigItem {
   blockConfirmations: number;
-  wbnb: string;
+  weth: string;
 }
 export const networkConfig: networkConfigInfo = {
-
   hardhat: {
     blockConfirmations: 0,
-    wbnb: "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+    weth: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
   },
 
   mainnet: {
     blockConfirmations: 6,
-    wbnb: "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+    weth: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
   },
 
-  testnet: {
+  sepolia: {
     blockConfirmations: 6,
-    wbnb: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+    weth: "0x5f207d42F869fd1c71d7f0f81a2A67Fc20FF7323",
   },
 };
 export const developmentChains = ["hardhat", "localhost"];
+export const developmentChainsId = [31337];

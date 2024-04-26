@@ -1,0 +1,693 @@
+{
+  "address": "0xb2eF98BB03a26fc7b46BEa6018800b654F932275",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "FundsLock__AlreadyWithdrawn",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__BalanceExceeded",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__DepositNotForCaller",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__DepositNotFound",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__FundsStillLockUp",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__FundsWithdrawFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__InsufficientFunds",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__InsufficientFundsInReserve",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__InvalidArgs",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FundsLock__ZeroValue",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "depositor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        }
+      ],
+      "name": "FundsDeposited",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "depositor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256[]",
+          "name": "amount",
+          "type": "uint256[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256[]",
+          "name": "duration",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "FundsDepositedWithInterval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes16",
+          "name": "depositId",
+          "type": "bytes16"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "totalFunds",
+          "type": "uint256"
+        }
+      ],
+      "name": "FundsWithdrawn",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256[]",
+          "name": "durations",
+          "type": "uint256[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256[]",
+          "name": "interests",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "InterestsSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        }
+      ],
+      "name": "depositFunds",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "amount",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "duration",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "depositFundsWithInterval",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "depositTime",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInterest",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "amount",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "getTotalAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes16",
+          "name": "depositId",
+          "type": "bytes16"
+        }
+      ],
+      "name": "getUserDeposit",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "depositor",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "depositTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "duration",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "claim",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes16",
+              "name": "id",
+              "type": "bytes16"
+            }
+          ],
+          "internalType": "struct FundsLock.DepositInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserDepositIds",
+      "outputs": [
+        {
+          "internalType": "bytes16[]",
+          "name": "",
+          "type": "bytes16[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "durations",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "interests",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "setInterests",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes16",
+          "name": "depositId",
+          "type": "bytes16"
+        }
+      ],
+      "name": "withdrawFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "transactionHash": "0x7d227b091a9f013b07fcd6f00383de406f4e998f27f0a49f5c4a86bc4cbbb453",
+  "receipt": {
+    "to": null,
+    "from": "0xec2B1547294a4dd62C0aE651aEb01493f8e4cD74",
+    "contractAddress": "0xb2eF98BB03a26fc7b46BEa6018800b654F932275",
+    "transactionIndex": 0,
+    "gasUsed": "969237",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000001000001000000000000000000000000000000020000000000000000000800000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000080000000000000000000000000000000000080000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc9d130cb2c5ea6ae22894984d0c69b60179a7093d52192de5a9d54f8a7998acc",
+    "transactionHash": "0x7d227b091a9f013b07fcd6f00383de406f4e998f27f0a49f5c4a86bc4cbbb453",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 5779595,
+        "transactionHash": "0x7d227b091a9f013b07fcd6f00383de406f4e998f27f0a49f5c4a86bc4cbbb453",
+        "address": "0xb2eF98BB03a26fc7b46BEa6018800b654F932275",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000ec2b1547294a4dd62c0ae651aeb01493f8e4cd74"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0xc9d130cb2c5ea6ae22894984d0c69b60179a7093d52192de5a9d54f8a7998acc"
+      }
+    ],
+    "blockNumber": 5779595,
+    "cumulativeGasUsed": "969237",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "d051cdb734449a746620ee83f80dd617",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"FundsLock__AlreadyWithdrawn\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__BalanceExceeded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__DepositNotForCaller\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__DepositNotFound\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__FundsStillLockUp\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__FundsWithdrawFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__InsufficientFunds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__InsufficientFundsInReserve\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__InvalidArgs\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FundsLock__ZeroValue\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"depositor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"FundsDeposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"depositor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256[]\",\"name\":\"amount\",\"type\":\"uint256[]\"},{\"indexed\":true,\"internalType\":\"uint256[]\",\"name\":\"duration\",\"type\":\"uint256[]\"}],\"name\":\"FundsDepositedWithInterval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"depositId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"totalFunds\",\"type\":\"uint256\"}],\"name\":\"FundsWithdrawn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256[]\",\"name\":\"durations\",\"type\":\"uint256[]\"},{\"indexed\":true,\"internalType\":\"uint256[]\",\"name\":\"interests\",\"type\":\"uint256[]\"}],\"name\":\"InterestsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"depositFunds\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amount\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"duration\",\"type\":\"uint256[]\"}],\"name\":\"depositFundsWithInterval\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"depositTime\",\"type\":\"uint256\"}],\"name\":\"getInterest\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amount\",\"type\":\"uint256[]\"}],\"name\":\"getTotalAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes16\",\"name\":\"depositId\",\"type\":\"bytes16\"}],\"name\":\"getUserDeposit\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"depositor\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"depositTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"claim\",\"type\":\"bool\"},{\"internalType\":\"bytes16\",\"name\":\"id\",\"type\":\"bytes16\"}],\"internalType\":\"struct FundsLock.DepositInfo\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getUserDepositIds\",\"outputs\":[{\"internalType\":\"bytes16[]\",\"name\":\"\",\"type\":\"bytes16[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"durations\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"interests\",\"type\":\"uint256[]\"}],\"name\":\"setInterests\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes16\",\"name\":\"depositId\",\"type\":\"bytes16\"}],\"name\":\"withdrawFunds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"depositFunds(uint256)\":{\"params\":{\"duration\":\"This specifies how long the funds should be locked in the contract (in seconds)\"}},\"depositFundsWithInterval(uint256[],uint256[])\":{\"params\":{\"amount\":\"This is an array of the amount to deposit\",\"duration\":\"This is an array of the withdrawal intervals (in seconds)\"}},\"getInterest(uint256,uint256)\":{\"params\":{\"amount\":\"This specifies the amount to calculate interest on\",\"depositTime\":\"This specifies the time the amount was deposited\"},\"returns\":{\"_0\":\"the interest\"}},\"getTotalAmount(uint256[])\":{\"params\":{\"amount\":\"This is an array of the amounts to be accumulated\"},\"returns\":{\"_0\":\"uint256 The accumulated value is returned\"}},\"getUserDeposit(bytes16)\":{\"params\":{\"depositId\":\"This is the ID that the details needs to be obtained\"},\"returns\":{\"_0\":\"the details of the deposited funds\"}},\"getUserDepositIds(address)\":{\"params\":{\"user\":\"This specifies the user that needs to obtain the ids\"},\"returns\":{\"_0\":\"an array of all the ids\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"setInterests(uint256[],uint256[])\":{\"params\":{\"durations\":\"This is an array of the durations (in seconds)\",\"interests\":\"This is an array of the interests (every percentage is multiplied by 100 for better precision) \"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"withdrawFunds(bytes16)\":{\"params\":{\"depositId\":\"This is a uniqueId that specifies the funds to be withdrawn. Every deposited funds have their unique Id\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"depositFunds(uint256)\":{\"notice\":\"A function that users call to deposit funds (ETH) into the contract.\"},\"depositFundsWithInterval(uint256[],uint256[])\":{\"notice\":\"A function that allows users to set multiple withdrawal intervals for different portions of their deposited funds\"},\"getInterest(uint256,uint256)\":{\"notice\":\"Calculates interest based on the amount and the time it was deposited\"},\"getTotalAmount(uint256[])\":{\"notice\":\"This function returns the accumulation of all the amount passed in the array\"},\"getUserDeposit(bytes16)\":{\"notice\":\"Gets the details of a deposit specified by the depositId\"},\"getUserDepositIds(address)\":{\"notice\":\"Gets all the ids of the deposited funds of the user\"},\"setInterests(uint256[],uint256[])\":{\"notice\":\"A function that sets the duration and its corresponding interest. Only the owner can call this function\"},\"withdrawFunds(bytes16)\":{\"notice\":\"This is a function called by the users to withdraw their deposited funds.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/FundsLock.sol\":\"FundsLock\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":300},\"remappings\":[],\"viaIR\":true},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/security/ReentrancyGuard.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (security/ReentrancyGuard.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Contract module that helps prevent reentrant calls to a function.\\n *\\n * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier\\n * available, which can be applied to functions to make sure there are no nested\\n * (reentrant) calls to them.\\n *\\n * Note that because there is a single `nonReentrant` guard, functions marked as\\n * `nonReentrant` may not call one another. This can be worked around by making\\n * those functions `private`, and then adding `external` `nonReentrant` entry\\n * points to them.\\n *\\n * TIP: If you would like to learn more about reentrancy and alternative ways\\n * to protect against it, check out our blog post\\n * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].\\n */\\nabstract contract ReentrancyGuard {\\n    // Booleans are more expensive than uint256 or any type that takes up a full\\n    // word because each write operation emits an extra SLOAD to first read the\\n    // slot's contents, replace the bits taken up by the boolean, and then write\\n    // back. This is the compiler's defense against contract upgrades and\\n    // pointer aliasing, and it cannot be disabled.\\n\\n    // The values being non-zero value makes deployment a bit more expensive,\\n    // but in exchange the refund on every call to nonReentrant will be lower in\\n    // amount. Since refunds are capped to a percentage of the total\\n    // transaction's gas, it is best to keep them low in cases like this one, to\\n    // increase the likelihood of the full refund coming into effect.\\n    uint256 private constant _NOT_ENTERED = 1;\\n    uint256 private constant _ENTERED = 2;\\n\\n    uint256 private _status;\\n\\n    constructor() {\\n        _status = _NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Prevents a contract from calling itself, directly or indirectly.\\n     * Calling a `nonReentrant` function from another `nonReentrant`\\n     * function is not supported. It is possible to prevent this from happening\\n     * by making the `nonReentrant` function external, and making it call a\\n     * `private` function that does the actual work.\\n     */\\n    modifier nonReentrant() {\\n        _nonReentrantBefore();\\n        _;\\n        _nonReentrantAfter();\\n    }\\n\\n    function _nonReentrantBefore() private {\\n        // On the first call to nonReentrant, _status will be _NOT_ENTERED\\n        require(_status != _ENTERED, \\\"ReentrancyGuard: reentrant call\\\");\\n\\n        // Any calls to nonReentrant after this point will fail\\n        _status = _ENTERED;\\n    }\\n\\n    function _nonReentrantAfter() private {\\n        // By storing the original value once again, a refund is triggered (see\\n        // https://eips.ethereum.org/EIPS/eip-2200)\\n        _status = _NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Returns true if the reentrancy guard is currently set to \\\"entered\\\", which indicates there is a\\n     * `nonReentrant` function in the call stack.\\n     */\\n    function _reentrancyGuardEntered() internal view returns (bool) {\\n        return _status == _ENTERED;\\n    }\\n}\\n\",\"keccak256\":\"0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/FundsLock.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.17;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/security/ReentrancyGuard.sol\\\";\\r\\nimport  \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\n\\r\\ncontract FundsLock is ReentrancyGuard, Ownable {\\r\\n\\r\\n    error FundsLock__ZeroValue();\\r\\n    error FundsLock__BalanceExceeded();\\r\\n    error FundsLock__InvalidArgs();\\r\\n    error FundsLock__InsufficientFunds();\\r\\n    error FundsLock__DepositNotFound();\\r\\n    error FundsLock__DepositNotForCaller();\\r\\n    error FundsLock__FundsStillLockUp();\\r\\n    error FundsLock__InsufficientFundsInReserve();\\r\\n    error FundsLock__FundsWithdrawFailed();\\r\\n    error FundsLock__AlreadyWithdrawn();\\r\\n\\r\\n    event FundsDepositedWithInterval(address indexed depositor, uint256[] indexed amount, uint256[] indexed duration);\\r\\n    event FundsDeposited(address indexed depositor, uint256 indexed amount, uint256 indexed duration);\\r\\n    event InterestsSet(uint256[] indexed durations, uint256[] indexed interests);\\r\\n    event FundsWithdrawn(bytes16 indexed depositId, uint256 indexed totalFunds);\\r\\n\\r\\n\\r\\n    struct DepositInfo {\\r\\n        address depositor;\\r\\n        uint256 amount;\\r\\n        uint256 depositTime;\\r\\n        uint256 duration;\\r\\n        bool claim;\\r\\n        bytes16 id;\\r\\n    }\\r\\n\\r\\n    mapping(bytes16 => DepositInfo) private s_userFunds;\\r\\n    mapping(uint256 => uint256) private s_durationToInterest;   // You earn interest based on how long your funds is locked up\\r\\n    mapping(address => bytes16[]) private s_allUserDeposits;\\r\\n\\r\\n    uint256[] private s_durations;\\r\\n    uint256[] private s_interestPercentages;\\r\\n\\r\\n    uint256 private s_idGenerator = 0;\\r\\n\\r\\n    uint256 private constant AMOUNT_PRECISION = 10_000; // For better percentage precision\\r\\n\\r\\n     fallback() external payable {\\r\\n    }\\r\\n\\r\\n    receive() external payable {\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice A function that sets the duration and its corresponding interest. Only the owner can call this function\\r\\n     * @param durations  This is an array of the durations (in seconds)\\r\\n     * @param interests  This is an array of the interests (every percentage is multiplied by 100 for better precision) \\r\\n     */\\r\\n    function setInterests(uint256[] memory durations, uint256[] memory interests) external onlyOwner {\\r\\n        if (durations.length != interests.length){\\r\\n            revert FundsLock__InvalidArgs();\\r\\n        }\\r\\n\\r\\n        delete s_durations;\\r\\n        delete s_interestPercentages;\\r\\n\\r\\n        for (uint i = 0; i < durations.length; i++){\\r\\n            s_durations.push(durations[i]);\\r\\n            s_interestPercentages.push(interests[i]);\\r\\n        }\\r\\n\\r\\n        emit InterestsSet(durations, interests);\\r\\n    }\\r\\n\\r\\n      /**\\r\\n     * @notice A function that users call to deposit funds (ETH) into the contract.\\r\\n     * @param duration  This specifies how long the funds should be locked in the contract (in seconds)\\r\\n     */\\r\\n    function depositFunds(uint256 duration) external payable nonReentrant{\\r\\n        uint256 amount = msg.value;\\r\\n        if (amount <= 0 || duration <= 0){\\r\\n            revert FundsLock__ZeroValue();\\r\\n        }\\r\\n\\r\\n        if (amount > msg.sender.balance){\\r\\n            revert FundsLock__BalanceExceeded();\\r\\n        }\\r\\n\\r\\n        bytes16 depositId = _generateDepositID(msg.sender);\\r\\n\\r\\n         DepositInfo memory newDepositInfo = DepositInfo({\\r\\n                depositor: msg.sender,\\r\\n                amount: amount,\\r\\n                depositTime: block.timestamp,\\r\\n                duration: duration,\\r\\n                claim: false,\\r\\n                id: depositId\\r\\n            });\\r\\n\\r\\n        s_allUserDeposits[msg.sender].push(depositId);\\r\\n        s_userFunds[depositId] = newDepositInfo;\\r\\n        s_idGenerator++;\\r\\n\\r\\n        emit FundsDeposited(msg.sender, amount, duration);\\r\\n    }\\r\\n\\r\\n      /**\\r\\n     * @notice A function that allows users to set multiple withdrawal intervals for different portions of their deposited funds\\r\\n     * @param amount  This is an array of the amount to deposit\\r\\n     * @param duration  This is an array of the withdrawal intervals (in seconds)\\r\\n     */\\r\\n    function depositFundsWithInterval(uint256[] memory amount, uint256[] memory duration) external payable nonReentrant {\\r\\n        if (amount.length != duration.length){\\r\\n            revert FundsLock__InvalidArgs();\\r\\n        }\\r\\n\\r\\n        uint256 totalAmount = getTotalAmount(amount);\\r\\n\\r\\n        if (totalAmount > msg.value){\\r\\n            revert FundsLock__InsufficientFunds();\\r\\n        }\\r\\n\\r\\n        if (totalAmount > msg.sender.balance){\\r\\n            revert FundsLock__BalanceExceeded();\\r\\n        }\\r\\n\\r\\n        for (uint i = 0; i < amount.length; i++){\\r\\n            uint256 currentAmount = amount[i];\\r\\n            uint256 currentDuration = duration[i];\\r\\n            bytes16 depositId = _generateDepositID(msg.sender);\\r\\n\\r\\n            DepositInfo memory newDepositInfo = DepositInfo({\\r\\n                depositor: msg.sender,\\r\\n                amount: currentAmount,\\r\\n                depositTime: block.timestamp,\\r\\n                duration: currentDuration,\\r\\n                claim: false,\\r\\n                id: depositId\\r\\n            });\\r\\n\\r\\n            s_allUserDeposits[msg.sender].push(depositId);\\r\\n            s_userFunds[depositId] = newDepositInfo;\\r\\n            s_idGenerator++;\\r\\n        }\\r\\n        emit FundsDepositedWithInterval(msg.sender, amount, duration);\\r\\n\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice This is a function called by the users to withdraw their deposited funds.\\r\\n     * @param depositId This is a uniqueId that specifies the funds to be withdrawn. Every deposited funds have their unique Id\\r\\n     */\\r\\n    function withdrawFunds(bytes16 depositId) external nonReentrant{\\r\\n        DepositInfo memory depositInfo = s_userFunds[depositId];\\r\\n        if (depositInfo.depositor == address(0)){\\r\\n            revert FundsLock__DepositNotFound();\\r\\n        }\\r\\n        if (depositInfo.depositor != msg.sender){\\r\\n            revert FundsLock__DepositNotForCaller();\\r\\n        }\\r\\n        if (depositInfo.claim == true){\\r\\n            revert FundsLock__AlreadyWithdrawn();\\r\\n        }\\r\\n        if (block.timestamp < depositInfo.depositTime + depositInfo.duration){\\r\\n            revert FundsLock__FundsStillLockUp();\\r\\n        }\\r\\n\\r\\n        uint256 interest = getInterest(depositInfo.amount, depositInfo.depositTime);\\r\\n\\r\\n        uint256 totalFunds = depositInfo.amount + interest;\\r\\n\\r\\n        if (address(this).balance < totalFunds){\\r\\n            revert FundsLock__InsufficientFundsInReserve();\\r\\n        }\\r\\n        s_userFunds[depositId].claim = true;\\r\\n\\r\\n        // Send the funds to the depositor \\r\\n        (bool success,) = msg.sender.call{value: totalFunds}(\\\"\\\");\\r\\n        if (!success){\\r\\n            revert FundsLock__FundsWithdrawFailed();\\r\\n        }\\r\\n\\r\\n        emit FundsWithdrawn(depositId, totalFunds);\\r\\n\\r\\n    }\\r\\n\\r\\n       /**\\r\\n     * @notice This function converts an unsigned integer to a bytes16 value\\r\\n     * @param x This specifies the unsigned integer to convert.\\r\\n     * @return b This is the bytes conversion of the unsigned integer\\r\\n     */\\r\\n    function _toBytes16(uint256 x) internal pure returns (bytes16 b) {\\r\\n        return bytes16(bytes32(x));\\r\\n    }\\r\\n\\r\\n       /**\\r\\n     * @notice This function generates an ID based on the parameters passed to it\\r\\n     * @param w This is an address of the user depositing funds\\r\\n     * @param x This is the id generator that gets incremented anytime a deposit is detected\\r\\n     * @param y This is the time the deposit is made\\r\\n     * @param z This is a byte value that contributes to generating the ID\\r\\n     * @return b This is the ID returned\\r\\n     */\\r\\n    function _generateID(\\r\\n        address w,\\r\\n        uint256 x,\\r\\n        uint256 y,\\r\\n        bytes1 z) internal pure returns (bytes16 b) {\\r\\n        b = _toBytes16(uint256(keccak256(abi.encodePacked(w, x, y, z))));\\r\\n    }\\r\\n\\r\\n       /**\\r\\n     * @notice This generates the deposit ID\\r\\n     * @param _user This is the address of the depositor\\r\\n     * @return depositId This is the deposit Id\\r\\n     */\\r\\n    function _generateDepositID(address _user) internal view returns (bytes16 depositId){\\r\\n        return _generateID( _user, s_idGenerator, block.timestamp, 0x01);\\r\\n    }\\r\\n\\r\\n       /**\\r\\n     * @notice This function returns the accumulation of all the amount passed in the array\\r\\n     * @param amount This is an array of the amounts to be accumulated\\r\\n     * @return uint256 The accumulated value is returned\\r\\n     */\\r\\n    function getTotalAmount(uint256[] memory amount) public pure returns(uint256){\\r\\n        uint256 totalAmount = 0;\\r\\n        for (uint256 i = 0; i < amount.length; i++){\\r\\n            totalAmount += amount[i];\\r\\n        }\\r\\n        return totalAmount;\\r\\n    } \\r\\n\\r\\n       /**\\r\\n     * @notice Calculates interest based on the amount and the time it was deposited\\r\\n     * @param amount This specifies the amount to calculate interest on\\r\\n     * @param depositTime This specifies the time the amount was deposited\\r\\n     * @return the interest\\r\\n     */\\r\\n    function getInterest(uint256 amount, uint256 depositTime) public view returns(uint256){\\r\\n        uint256 timeElapsed = block.timestamp - depositTime;\\r\\n        uint256 interest = 0;\\r\\n\\r\\n        for (int256 index = int(s_durations.length - 1); index >= 0; index--){\\r\\n            uint256 i = uint256(index);\\r\\n            uint256 currentDuration = s_durations[i];\\r\\n        \\r\\n            if (timeElapsed >= currentDuration){\\r\\n                interest = (s_interestPercentages[i] * amount) / AMOUNT_PRECISION;\\r\\n                break;\\r\\n            }\\r\\n        }  \\r\\n\\r\\n        return interest;\\r\\n    }\\r\\n\\r\\n       /**\\r\\n     * @notice Gets all the ids of the deposited funds of the user\\r\\n     * @param user This specifies the user that needs to obtain the ids\\r\\n     * @return an array of all the ids\\r\\n     */\\r\\n    function getUserDepositIds(address user) external view returns(bytes16[] memory){\\r\\n        return s_allUserDeposits[user];\\r\\n    }\\r\\n\\r\\n       /**\\r\\n     * @notice Gets the details of a deposit specified by the depositId\\r\\n     * @param depositId This is the ID that the details needs to be obtained\\r\\n     * @return the details of the deposited funds\\r\\n     */\\r\\n    function getUserDeposit(bytes16 depositId) external view returns(DepositInfo memory){\\r\\n        return s_userFunds[depositId];\\r\\n    }\\r\\n\\r\\n}\\r\\n\\r\\n\",\"keccak256\":\"0xdc576ed176e67ab76b8db9eb466b0d2a5e7440332662a6ea620c2ccb839c82a3\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080806040523461006357600160008181558154336001600160a01b0319821681179093556001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a36000600755610fa990816100698239f35b600080fdfe60406080815260048036101561001c575b5050361561001a57005b005b600091823560e01c8063398ca5631461095e5780633b76594d146108065780634523b6991461062457806364ac6b0514610540578063715018a6146104e3578063728af7ec146104c05780638da5cb5b146104985780638f14fd8f146102e55780639cfb0b651461029e578063d4e4487d146101705763f2fde38b146100a25750610010565b3461016c57602036600319011261016c578135916001600160a01b0391828416809403610168576100d1610c5a565b8315610116575050600154826001600160601b0360a01b821617600155167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b906020608492519162461bcd60e51b8352820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152fd5b8480fd5b8280fd5b5082903461029a576020928360031936011261016c5780356001600160a01b038116809103610296578352835280822081519182858354948581520192839086528686209186945b6001908782880110156101ef57908560029286546001600160801b031990818160801b168352168c820152019401950194926101b8565b89915061021f83838b938a8c8b9a549184828210610279575b5010610264575b5090509695949293960382610b85565b83519485948186019282875251809352850193925b82811061024357505050500390f35b83516001600160801b03191685528695509381019392810192600101610234565b6001600160801b03191681528591018961020f565b600191946001600160801b03198560801b16815201930184610208565b8380fd5b5080fd5b5082346102e25760203660031901126102e25782359067ffffffffffffffff82116102e257506102d66020936102db92369101610ba7565b610e50565b9051908152f35b80fd5b50826102f036610c13565b6102fb949194610d8c565b84518151036104895761030d85610e50565b3481116104795733311061046a57825b855181101561042957806103346104249288610cd7565b516103ad6103f1866103468588610cd7565b519361035133610def565b948b8b81519361036085610b53565b3385526001600160a01b036020938487019283528087019342855260608801968752608088019b818d5260a089019b8c916001600160801b031981168093523384528b8952848420610d3b565b81526002809652209551166001600160601b0360a01b86541617855551600185015551908301555160038201550192511515839060ff801983541691151516179055565b51610100600160881b0382549160781c1690610100600160881b031916179055600761041d8154610cb2565b9055610cb2565b61031d565b838261043d61043789610d01565b91610d01565b90337f1995e4394b50bf742631d70655948418b3a3ad2196b88ba5a57da8e9ed6142d48480a46001815580f35b5082516302d8c32d60e41b8152fd5b8451632b60691760e21b81528390fd5b508251630bdb43e360e31b8152fd5b83823461029a578160031936011261029a576020906001600160a01b03600154169051908152f35b5082346102e257816003193601126102e257506102db6020926024359035610e88565b83346102e257806003193601126102e2576104fc610c5a565b806001600160a01b036001546001600160601b0360a01b8116600155167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b50903461016c57602036600319011261016c576001600160801b0319908035828116908190036101685784849160c09660a0845161057d81610b53565b8281528260208201528286820152826060820152826080820152015281526002602052208351906105ad82610b53565b6001600160a01b038154169485835260018201549360208401948552600283015490828501918252600384015493606086019485520154948660a0608087019660ff891615158852019660781b168652825197885251602088015251908601525160608501525115156080840152511660a0820152f35b503461016c5760209182600319360112610296578035916001600160801b031980841680940361080257610656610d8c565b838652600285528186209082519161066d83610b53565b6001600160a01b039182825416928385526001830154948981019586526002840154948782019586528860038601549560608401968752015493608083019460ff81161515865260781b1660a0830152156107f257511633036107e2575115156001146107d257815190516106e191610de2565b42106107c357906106f9610700928251905190610e88565b9051610de2565b938447106107b557838652600281528186208301805460ff191660011790558580808088335af1903d156107af573d9067ffffffffffffffff821161079c57879084519261075782601f19601f8401160185610b85565b83523d92013e5b156107905750507f7f80d638800da61b17140b7c9e0d5c5e4656816d29766c1b9da53303121fe7028380a36001815580f35b5162ec8b2360e21b8152fd5b634e487b7160e01b885260418552602488fd5b5061075e565b5051630381440960e31b8152fd5b505051636a2f42c160e01b8152fd5b50505051637bbc12f560e01b8152fd5b84516379db86d960e01b81528690fd5b8651636b0fc78560e11b81528890fd5b8580fd5b5090602036600319011261016c5780359161081f610d8c565b34158015610956575b610949573331341161093c576108e161084033610def565b92825161084c81610b53565b3381526020810134815284820142815260608301918883526001600160a01b03878b61089b608088019b828d5260a089019b8c936001600160801b031983168095523381528b60205220610d3b565b8c5260026020528b209451166001600160601b0360a01b8554161784555160018401555160028301555160038201550192511515839060ff801983541691151516179055565b51610100600160881b0382549160781c1690610100600160881b03191617905561090c600754610cb2565b60075534337fbee4fe3675934fca827426c793623996a3079255089bda3a717019ffc5db27658480a46001815580f35b516302d8c32d60e41b8152fd5b51637253b26960e01b8152fd5b508215610828565b5082346102e25761096e36610c13565b9092610978610c5a565b8351825103610b445750600591825481845580610b03575b50600690815481835580610ac2575b50805b8551811015610a8c576109b58187610cd7565b51855490600160401b9081831015610a6657600192838101808a55811015610a79578886527f036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3db00155610a078387610cd7565b5191855491821015610a66578101808655811015610a53578484527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f0155610a4e90610cb2565b6109a2565b634e487b7160e01b845260328952602484fd5b634e487b7160e01b855260418a52602485fd5b634e487b7160e01b865260328b52602486fd5b5082610a9a61043787610d01565b907f22d3e7e504d7d9700edc979095abbcfe7cd9fdfdbc848c8484b45cc1ccd86edc8380a380f35b8282527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f908101905b818110610af8575061099f565b828155600101610aeb565b8382527f036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3db0908101905b818110610b395750610990565b828155600101610b2c565b51630bdb43e360e31b81528490fd5b60c0810190811067ffffffffffffffff821117610b6f57604052565b634e487b7160e01b600052604160045260246000fd5b90601f8019910116810190811067ffffffffffffffff821117610b6f57604052565b9080601f83011215610c0e5781359067ffffffffffffffff8211610b6f578160051b60405193602093610bdc85840187610b85565b85528380860192820101928311610c0e578301905b828210610bff575050505090565b81358152908301908301610bf1565b600080fd5b906040600319830112610c0e5767ffffffffffffffff600435818111610c0e5783610c4091600401610ba7565b92602435918211610c0e57610c5791600401610ba7565b90565b6001600160a01b03600154163303610c6e57565b606460405162461bcd60e51b815260206004820152602060248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152fd5b6000198114610cc15760010190565b634e487b7160e01b600052601160045260246000fd5b8051821015610ceb5760209160051b010190565b634e487b7160e01b600052603260045260246000fd5b60405190818183925160208092019160005b828110610d24575050505003902090565b835185528695509381019392810192600101610d13565b90815491600160401b831015610b6f5760018301808255831015610ceb5760005260206000208260011c0191608083549160071b16916001600160801b03831b92839160801c901b16911916179055565b600260005414610d9d576002600055565b60405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606490fd5b91908201809211610cc157565b600754906040519160208301916001600160601b03199060601b1682526034830152426054830152600160f81b6074830152605582526080820182811067ffffffffffffffff821117610b6f57604052905190206001600160801b03191690565b600090815b8151831015610e8257610e76610e7c91610e6f8585610cd7565b5190610de2565b92610cb2565b91610e55565b91505090565b90420390428211610cc15760058054600093600019939192848401848111610f5f575b6000811215610ebe575b50505050505090565b84811015610ceb5781600052807f036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3db00154831015610f0757600160ff1b8114610cc1578501610eab565b9450505092505060068054821015610ceb576000527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f0154818102918183041490151715610cc1576127109004388080808080610eb5565b634e487b7160e01b87526011600452602487fdfea26469706673582212207e46f00b8780b3a2a80794358fa8b3d787ef43392f6ae80994e7a9af3747178664736f6c63430008110033",
+  "deployedBytecode": "0x60406080815260048036101561001c575b5050361561001a57005b005b600091823560e01c8063398ca5631461095e5780633b76594d146108065780634523b6991461062457806364ac6b0514610540578063715018a6146104e3578063728af7ec146104c05780638da5cb5b146104985780638f14fd8f146102e55780639cfb0b651461029e578063d4e4487d146101705763f2fde38b146100a25750610010565b3461016c57602036600319011261016c578135916001600160a01b0391828416809403610168576100d1610c5a565b8315610116575050600154826001600160601b0360a01b821617600155167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b906020608492519162461bcd60e51b8352820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152fd5b8480fd5b8280fd5b5082903461029a576020928360031936011261016c5780356001600160a01b038116809103610296578352835280822081519182858354948581520192839086528686209186945b6001908782880110156101ef57908560029286546001600160801b031990818160801b168352168c820152019401950194926101b8565b89915061021f83838b938a8c8b9a549184828210610279575b5010610264575b5090509695949293960382610b85565b83519485948186019282875251809352850193925b82811061024357505050500390f35b83516001600160801b03191685528695509381019392810192600101610234565b6001600160801b03191681528591018961020f565b600191946001600160801b03198560801b16815201930184610208565b8380fd5b5080fd5b5082346102e25760203660031901126102e25782359067ffffffffffffffff82116102e257506102d66020936102db92369101610ba7565b610e50565b9051908152f35b80fd5b50826102f036610c13565b6102fb949194610d8c565b84518151036104895761030d85610e50565b3481116104795733311061046a57825b855181101561042957806103346104249288610cd7565b516103ad6103f1866103468588610cd7565b519361035133610def565b948b8b81519361036085610b53565b3385526001600160a01b036020938487019283528087019342855260608801968752608088019b818d5260a089019b8c916001600160801b031981168093523384528b8952848420610d3b565b81526002809652209551166001600160601b0360a01b86541617855551600185015551908301555160038201550192511515839060ff801983541691151516179055565b51610100600160881b0382549160781c1690610100600160881b031916179055600761041d8154610cb2565b9055610cb2565b61031d565b838261043d61043789610d01565b91610d01565b90337f1995e4394b50bf742631d70655948418b3a3ad2196b88ba5a57da8e9ed6142d48480a46001815580f35b5082516302d8c32d60e41b8152fd5b8451632b60691760e21b81528390fd5b508251630bdb43e360e31b8152fd5b83823461029a578160031936011261029a576020906001600160a01b03600154169051908152f35b5082346102e257816003193601126102e257506102db6020926024359035610e88565b83346102e257806003193601126102e2576104fc610c5a565b806001600160a01b036001546001600160601b0360a01b8116600155167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b50903461016c57602036600319011261016c576001600160801b0319908035828116908190036101685784849160c09660a0845161057d81610b53565b8281528260208201528286820152826060820152826080820152015281526002602052208351906105ad82610b53565b6001600160a01b038154169485835260018201549360208401948552600283015490828501918252600384015493606086019485520154948660a0608087019660ff891615158852019660781b168652825197885251602088015251908601525160608501525115156080840152511660a0820152f35b503461016c5760209182600319360112610296578035916001600160801b031980841680940361080257610656610d8c565b838652600285528186209082519161066d83610b53565b6001600160a01b039182825416928385526001830154948981019586526002840154948782019586528860038601549560608401968752015493608083019460ff81161515865260781b1660a0830152156107f257511633036107e2575115156001146107d257815190516106e191610de2565b42106107c357906106f9610700928251905190610e88565b9051610de2565b938447106107b557838652600281528186208301805460ff191660011790558580808088335af1903d156107af573d9067ffffffffffffffff821161079c57879084519261075782601f19601f8401160185610b85565b83523d92013e5b156107905750507f7f80d638800da61b17140b7c9e0d5c5e4656816d29766c1b9da53303121fe7028380a36001815580f35b5162ec8b2360e21b8152fd5b634e487b7160e01b885260418552602488fd5b5061075e565b5051630381440960e31b8152fd5b505051636a2f42c160e01b8152fd5b50505051637bbc12f560e01b8152fd5b84516379db86d960e01b81528690fd5b8651636b0fc78560e11b81528890fd5b8580fd5b5090602036600319011261016c5780359161081f610d8c565b34158015610956575b610949573331341161093c576108e161084033610def565b92825161084c81610b53565b3381526020810134815284820142815260608301918883526001600160a01b03878b61089b608088019b828d5260a089019b8c936001600160801b031983168095523381528b60205220610d3b565b8c5260026020528b209451166001600160601b0360a01b8554161784555160018401555160028301555160038201550192511515839060ff801983541691151516179055565b51610100600160881b0382549160781c1690610100600160881b03191617905561090c600754610cb2565b60075534337fbee4fe3675934fca827426c793623996a3079255089bda3a717019ffc5db27658480a46001815580f35b516302d8c32d60e41b8152fd5b51637253b26960e01b8152fd5b508215610828565b5082346102e25761096e36610c13565b9092610978610c5a565b8351825103610b445750600591825481845580610b03575b50600690815481835580610ac2575b50805b8551811015610a8c576109b58187610cd7565b51855490600160401b9081831015610a6657600192838101808a55811015610a79578886527f036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3db00155610a078387610cd7565b5191855491821015610a66578101808655811015610a53578484527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f0155610a4e90610cb2565b6109a2565b634e487b7160e01b845260328952602484fd5b634e487b7160e01b855260418a52602485fd5b634e487b7160e01b865260328b52602486fd5b5082610a9a61043787610d01565b907f22d3e7e504d7d9700edc979095abbcfe7cd9fdfdbc848c8484b45cc1ccd86edc8380a380f35b8282527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f908101905b818110610af8575061099f565b828155600101610aeb565b8382527f036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3db0908101905b818110610b395750610990565b828155600101610b2c565b51630bdb43e360e31b81528490fd5b60c0810190811067ffffffffffffffff821117610b6f57604052565b634e487b7160e01b600052604160045260246000fd5b90601f8019910116810190811067ffffffffffffffff821117610b6f57604052565b9080601f83011215610c0e5781359067ffffffffffffffff8211610b6f578160051b60405193602093610bdc85840187610b85565b85528380860192820101928311610c0e578301905b828210610bff575050505090565b81358152908301908301610bf1565b600080fd5b906040600319830112610c0e5767ffffffffffffffff600435818111610c0e5783610c4091600401610ba7565b92602435918211610c0e57610c5791600401610ba7565b90565b6001600160a01b03600154163303610c6e57565b606460405162461bcd60e51b815260206004820152602060248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152fd5b6000198114610cc15760010190565b634e487b7160e01b600052601160045260246000fd5b8051821015610ceb5760209160051b010190565b634e487b7160e01b600052603260045260246000fd5b60405190818183925160208092019160005b828110610d24575050505003902090565b835185528695509381019392810192600101610d13565b90815491600160401b831015610b6f5760018301808255831015610ceb5760005260206000208260011c0191608083549160071b16916001600160801b03831b92839160801c901b16911916179055565b600260005414610d9d576002600055565b60405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606490fd5b91908201809211610cc157565b600754906040519160208301916001600160601b03199060601b1682526034830152426054830152600160f81b6074830152605582526080820182811067ffffffffffffffff821117610b6f57604052905190206001600160801b03191690565b600090815b8151831015610e8257610e76610e7c91610e6f8585610cd7565b5190610de2565b92610cb2565b91610e55565b91505090565b90420390428211610cc15760058054600093600019939192848401848111610f5f575b6000811215610ebe575b50505050505090565b84811015610ceb5781600052807f036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3db00154831015610f0757600160ff1b8114610cc1578501610eab565b9450505092505060068054821015610ceb576000527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f0154818102918183041490151715610cc1576127109004388080808080610eb5565b634e487b7160e01b87526011600452602487fdfea26469706673582212207e46f00b8780b3a2a80794358fa8b3d787ef43392f6ae80994e7a9af3747178664736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "depositFunds(uint256)": {
+        "params": {
+          "duration": "This specifies how long the funds should be locked in the contract (in seconds)"
+        }
+      },
+      "depositFundsWithInterval(uint256[],uint256[])": {
+        "params": {
+          "amount": "This is an array of the amount to deposit",
+          "duration": "This is an array of the withdrawal intervals (in seconds)"
+        }
+      },
+      "getInterest(uint256,uint256)": {
+        "params": {
+          "amount": "This specifies the amount to calculate interest on",
+          "depositTime": "This specifies the time the amount was deposited"
+        },
+        "returns": {
+          "_0": "the interest"
+        }
+      },
+      "getTotalAmount(uint256[])": {
+        "params": {
+          "amount": "This is an array of the amounts to be accumulated"
+        },
+        "returns": {
+          "_0": "uint256 The accumulated value is returned"
+        }
+      },
+      "getUserDeposit(bytes16)": {
+        "params": {
+          "depositId": "This is the ID that the details needs to be obtained"
+        },
+        "returns": {
+          "_0": "the details of the deposited funds"
+        }
+      },
+      "getUserDepositIds(address)": {
+        "params": {
+          "user": "This specifies the user that needs to obtain the ids"
+        },
+        "returns": {
+          "_0": "an array of all the ids"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "setInterests(uint256[],uint256[])": {
+        "params": {
+          "durations": "This is an array of the durations (in seconds)",
+          "interests": "This is an array of the interests (every percentage is multiplied by 100 for better precision) "
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "withdrawFunds(bytes16)": {
+        "params": {
+          "depositId": "This is a uniqueId that specifies the funds to be withdrawn. Every deposited funds have their unique Id"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "depositFunds(uint256)": {
+        "notice": "A function that users call to deposit funds (ETH) into the contract."
+      },
+      "depositFundsWithInterval(uint256[],uint256[])": {
+        "notice": "A function that allows users to set multiple withdrawal intervals for different portions of their deposited funds"
+      },
+      "getInterest(uint256,uint256)": {
+        "notice": "Calculates interest based on the amount and the time it was deposited"
+      },
+      "getTotalAmount(uint256[])": {
+        "notice": "This function returns the accumulation of all the amount passed in the array"
+      },
+      "getUserDeposit(bytes16)": {
+        "notice": "Gets the details of a deposit specified by the depositId"
+      },
+      "getUserDepositIds(address)": {
+        "notice": "Gets all the ids of the deposited funds of the user"
+      },
+      "setInterests(uint256[],uint256[])": {
+        "notice": "A function that sets the duration and its corresponding interest. Only the owner can call this function"
+      },
+      "withdrawFunds(bytes16)": {
+        "notice": "This is a function called by the users to withdraw their deposited funds."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 123,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "_status",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 277,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "s_userFunds",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_bytes16,t_struct(DepositInfo)272_storage)"
+      },
+      {
+        "astId": 281,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "s_durationToInterest",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_uint256,t_uint256)"
+      },
+      {
+        "astId": 286,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "s_allUserDeposits",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_address,t_array(t_bytes16)dyn_storage)"
+      },
+      {
+        "astId": 289,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "s_durations",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_array(t_uint256)dyn_storage"
+      },
+      {
+        "astId": 292,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "s_interestPercentages",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_array(t_uint256)dyn_storage"
+      },
+      {
+        "astId": 295,
+        "contract": "contracts/FundsLock.sol:FundsLock",
+        "label": "s_idGenerator",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_bytes16)dyn_storage": {
+        "base": "t_bytes16",
+        "encoding": "dynamic_array",
+        "label": "bytes16[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes16": {
+        "encoding": "inplace",
+        "label": "bytes16",
+        "numberOfBytes": "16"
+      },
+      "t_mapping(t_address,t_array(t_bytes16)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bytes16[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_bytes16)dyn_storage"
+      },
+      "t_mapping(t_bytes16,t_struct(DepositInfo)272_storage)": {
+        "encoding": "mapping",
+        "key": "t_bytes16",
+        "label": "mapping(bytes16 => struct FundsLock.DepositInfo)",
+        "numberOfBytes": "32",
+        "value": "t_struct(DepositInfo)272_storage"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(DepositInfo)272_storage": {
+        "encoding": "inplace",
+        "label": "struct FundsLock.DepositInfo",
+        "members": [
+          {
+            "astId": 261,
+            "contract": "contracts/FundsLock.sol:FundsLock",
+            "label": "depositor",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 263,
+            "contract": "contracts/FundsLock.sol:FundsLock",
+            "label": "amount",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 265,
+            "contract": "contracts/FundsLock.sol:FundsLock",
+            "label": "depositTime",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 267,
+            "contract": "contracts/FundsLock.sol:FundsLock",
+            "label": "duration",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 269,
+            "contract": "contracts/FundsLock.sol:FundsLock",
+            "label": "claim",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_bool"
+          },
+          {
+            "astId": 271,
+            "contract": "contracts/FundsLock.sol:FundsLock",
+            "label": "id",
+            "offset": 1,
+            "slot": "4",
+            "type": "t_bytes16"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

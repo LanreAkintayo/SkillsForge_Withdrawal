@@ -1,6 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { developmentChains, networkConfig } from "../helper-hardhat-config";
+import { developmentChainsId, networkConfig } from "../helper-hardhat-config";
 import { ethers } from "hardhat";
 import { verify } from "../utils/verify";
 import { FundsLock } from "../typechain-types";
@@ -44,9 +44,15 @@ const deployFundsLock: DeployFunction = async function (
   await fundsLockTx.wait();
 
   // Let us fund the contract with some ETH
+  let ethReserve;
+  if (developmentChainsId.includes(chainId)) {
+    ethReserve = toWei(1); // 1 ether
+  } else {
+    ethReserve = toWei(0.001); // 0.001 ether
+  }
   const sendTx = await deployerSigner.sendTransaction({
     to: fundsLock.target,
-    value: toWei(1), // 1 ether
+    value: ethReserve,
   });
   await sendTx.wait();
 

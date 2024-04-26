@@ -10,16 +10,9 @@ import {
   now,
   sDuration,
   toWei,
-  fromWei,
   fastForwardTheTime,
 } from "../../utils/helper";
-import {
-  ContractTransaction,
-  ContractTransactionReceipt,
-  ContractTransactionResponse,
-  Signer,
-} from "ethers";
-import { assert, expect } from "chai";
+import { expect } from "chai";
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 import { FundsLock } from "../../typechain-types";
 
@@ -46,7 +39,7 @@ describe("FundsLock Contract", function () {
     fundsLock = await ethers.getContract("FundsLock", deployer);
   });
 
-  it("should be able to deposit funds", async () => {
+  it("should be able to deposit funds and set duration", async () => {
     const amountToDeposit = toWei(1);
     const duration = sDuration.weeks(2);
 
@@ -172,7 +165,7 @@ describe("FundsLock Contract", function () {
     ).to.revertedWithCustomError(fundsLock, "FundsLock__AlreadyWithdrawn");
   });
 
-  it.only("should be able to earn interest if withdrawn late", async () => {
+  it("should be able to earn interest if withdrawn late", async () => {
     // Deposit
     const amountToDeposit = toWei(1);
     const duration = sDuration.weeks(2);

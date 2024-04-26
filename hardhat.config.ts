@@ -9,6 +9,7 @@ import "@nomicfoundation/hardhat-chai-matchers";
 import "hardhat-contract-sizer";
 
 const TESTNET_URL = process.env.TESTNET_URL;
+const SEPOLIA_URL = process.env.SEPOLIA_URL;
 const BSC_URL = process.env.BSC_URL;
 const MNEMONIC = process.env.MNEMONIC;
 
@@ -42,6 +43,13 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       timeout: 100_000_000,
+    },
+    sepolia: {
+      url: SEPOLIA_URL,
+      chainId: 11155111,
+      blockConfirmations: 6,
+      //@ts-ignore
+      accounts: { mnemonic: MNEMONIC },
     },
 
     testnet: {
@@ -80,7 +88,7 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       // @ts-ignore
-      bscTestnet: process.env.BSCSCAN_API_KEY,
+      sepolia: process.env.SEPOLIA_API_KEY,
     },
     customChains: [
       {
