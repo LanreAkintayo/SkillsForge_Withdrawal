@@ -1,6 +1,7 @@
 # FundsLock (Withdrawal) Contract
 
 ## PRE-REQUISITE
+
 - The framework used for the project is Hardhat.
 - After cloning or pulling from this repo, enter the command `npm install ` in the terminal to install all dependencies used for this project
 - Make sure your .env file is set up with all the necessary keys and endpoints needed. The template is shown below;
@@ -25,7 +26,7 @@ SEPOLIA_API_KEY=<API_KEY>
 
 Contract Address: 0xb2eF98BB03a26fc7b46BEa6018800b654F932275<br/>
 Link: https://sepolia.etherscan.io/address/0xb2eF98BB03a26fc7b46BEa6018800b654F932275<br/>
-
+Demo Link: https://youtu.be/XrPzm1yWGBI
 
 ## COMPILATION
 
@@ -56,7 +57,8 @@ The test file can be found in **test\unit\FundsLock.test.ts**. The test file has
 ```
 npx hardhat test --grep "should be able to deposit funds and set duration"
 ```
-- Test for the depositFundsWithInterval() function in the smart contract. The depositWithInterval function  allows users to set multiple withdrawal intervals for different portions of their deposited funds
+
+- Test for the depositFundsWithInterval() function in the smart contract. The depositWithInterval function allows users to set multiple withdrawal intervals for different portions of their deposited funds
 
 ```
 npx hardhat test --grep "should be able to deposit funds with interval"
@@ -65,8 +67,9 @@ npx hardhat test --grep "should be able to deposit funds with interval"
 - Test for the withdrawFunds() function. The withdrawFunds()function allows users to withdraw the funds that they've already deposited. The smart contract is designed in a way that every deposited funds has a unique ID. The ID serves as a means of tracking the status of the funds. The command below can be used to run this test;
 
 ```
-npx hardhat test --grep "should be able to withdraw after deposit" 
+npx hardhat test --grep "should be able to withdraw after deposit"
 ```
+
 - Test for the interest distribution mechanism. This is to ensure that if users withdraw their funds after a long period of time, interest would have been made on that fund. The command below can be used to run this test;
 
 ```
@@ -87,4 +90,3 @@ The scripts are located in the scripts directory. 1 script is written; <br/>
 ```
 npx hardhat run scripts/verifyFundsLock.ts --network sepolia
 ```
-

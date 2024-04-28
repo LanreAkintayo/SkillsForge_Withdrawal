@@ -182,6 +182,24 @@ contract FundsLock is ReentrancyGuard, Ownable {
 
     }
 
+        /**
+     * @notice Gets all the ids of the deposited funds of the user
+     * @param user This specifies the user that needs to obtain the ids
+     * @return an array of all the ids
+     */
+    function getUserDepositIds(address user) external view returns(bytes16[] memory){
+        return s_allUserDeposits[user];
+    }
+
+       /**
+     * @notice Gets the details of a deposit specified by the depositId
+     * @param depositId This is the ID that the details needs to be obtained
+     * @return the details of the deposited funds
+     */
+    function getUserDeposit(bytes16 depositId) external view returns(DepositInfo memory){
+        return s_userFunds[depositId];
+    }
+
        /**
      * @notice This function converts an unsigned integer to a bytes16 value
      * @param x This specifies the unsigned integer to convert.
@@ -206,6 +224,7 @@ contract FundsLock is ReentrancyGuard, Ownable {
         bytes1 z) internal pure returns (bytes16 b) {
         b = _toBytes16(uint256(keccak256(abi.encodePacked(w, x, y, z))));
     }
+    
 
        /**
      * @notice This generates the deposit ID
@@ -228,6 +247,7 @@ contract FundsLock is ReentrancyGuard, Ownable {
         }
         return totalAmount;
     } 
+
 
        /**
      * @notice Calculates interest based on the amount and the time it was deposited
@@ -252,23 +272,7 @@ contract FundsLock is ReentrancyGuard, Ownable {
         return interest;
     }
 
-       /**
-     * @notice Gets all the ids of the deposited funds of the user
-     * @param user This specifies the user that needs to obtain the ids
-     * @return an array of all the ids
-     */
-    function getUserDepositIds(address user) external view returns(bytes16[] memory){
-        return s_allUserDeposits[user];
-    }
-
-       /**
-     * @notice Gets the details of a deposit specified by the depositId
-     * @param depositId This is the ID that the details needs to be obtained
-     * @return the details of the deposited funds
-     */
-    function getUserDeposit(bytes16 depositId) external view returns(DepositInfo memory){
-        return s_userFunds[depositId];
-    }
+   
 
 }
 
