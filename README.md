@@ -82,11 +82,36 @@ npx hardhat test --grep "should be able to earn interest if withdrawn late"
 
 ## RUNNING SCRIPTS
 
-The scripts are located in the scripts directory. 1 script is written; <br/>
+The scripts are located in the scripts directory. 4 scripts are written; <br/>
 
 1. verifyFunsdLock.ts <br/>
    This script is used to verify the contract in the sepolia block explorer
+   
 
 ```
 npx hardhat run scripts/verifyFundsLock.ts --network sepolia
+```
+
+2. depositFunds.ts <br/>
+   This script is used to deposit funds (Ether) to the contract
+   
+
+```
+npx hardhat run scripts/depositFunds.ts --network sepolia
+```
+
+3. depositFundsWithInterval.ts <br/>
+   This script is used to deposit multiple funds to the contract with different withdrawal intervals.
+   
+
+```
+npx hardhat run scripts/depositFundsWithInterval.ts --network sepolia
+```
+
+4. withdrawFunds.ts <br/>
+   This script is used to withdraw deposited funds.
+   
+
+```
+npx hardhat run scripts/withdrawFunds.ts --network sepolia
 ```
