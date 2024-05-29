@@ -1,6 +1,5 @@
 # FundsLock (Withdrawal) Contract
 
-## PRE-REQUISITE
 
 - The framework used for the project is Hardhat.
 - After cloning or pulling from this repo, enter the command `npm install ` in the terminal to install all dependencies used for this project
